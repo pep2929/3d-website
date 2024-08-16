@@ -1,12 +1,15 @@
 // Create the scene
 const scene = new THREE.Scene();
 
+// Set the background color to transparent or a different color if needed
+scene.background = new THREE.Color(0x000000); // Set to black or use 'null' for transparency
+
 // Create the camera, positioned closer to the cars
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 3, 15); // Adjust the camera position to ensure visibility of the scene
 
 // Create the renderer with anti-aliasing enabled
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // 'alpha: true' allows transparent background
 renderer.setPixelRatio(window.devicePixelRatio); // Set pixel ratio for sharpness
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputEncoding = THREE.sRGBEncoding; // Use sRGB encoding for better color accuracy
@@ -43,7 +46,7 @@ loader.load('evo_rally_car.glb', function(gltf) {
         }
     });
 
-    carModel1.position.set(2, 0, 0); // Position the first car on the same level
+    carModel1.position.set(-2, 0, 0); // Position the first car on the same level
     carModel1.scale.set(0.5, 0.5, 0.5); // Scale the car
     scene.add(carModel1);
 
