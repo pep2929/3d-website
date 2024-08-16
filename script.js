@@ -1,7 +1,7 @@
 // Create the scene
 const scene = new THREE.Scene();
 
-// Set the background color to transparent or a different color if needed
+// Set the background color to black
 scene.background = new THREE.Color(0x000000); // Set to black or use 'null' for transparency
 
 // Create the camera, positioned closer to the cars
@@ -17,12 +17,8 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping; // Use ACES tone mapping for
 renderer.toneMappingExposure = 1.2; // Slightly increased exposure for better visibility
 document.getElementById('3d-container').appendChild(renderer.domElement);
 
-// Add ambient light with increased intensity
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Neutral white light for general illumination
-scene.add(ambientLight);
-
-// Add stronger directional light to highlight the cars and skyline
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2); // Stronger directional light for better contrast
+// Add directional light to highlight the cars and skyline
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2); // Strong directional light for better contrast
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
 
