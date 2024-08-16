@@ -22,7 +22,7 @@ scene.add(directionalLight);
 const loader = new THREE.GLTFLoader();
 
 // Load the GLB model
-loader.load('eco_rally_car.glb', function(gltf) {
+loader.load('evo_rally_car.glb', function(gltf) {
     const carModel = gltf.scene;
     carModel.position.set(-2, 0, 0); // Position the car on the left side
     carModel.scale.set(0.5, 0.5, 0.5); // Scale the car to fit the scene
@@ -32,7 +32,7 @@ loader.load('eco_rally_car.glb', function(gltf) {
 });
 
 // Load the second car model (you can duplicate the first if you want the same car)
-loader.load('eco_rally_car.glb', function(gltf) {
+loader.load('evo_rally_car.glb', function(gltf) {
     const carModel2 = gltf.scene;
     carModel2.position.set(2, 0, 0); // Position the car on the right side
     carModel2.scale.set(0.5, 0.5, 0.5); // Scale the car to fit the scene
