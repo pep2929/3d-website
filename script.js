@@ -25,9 +25,25 @@ scene.add(directionalLight);
 // Create the GLTF loader
 const loader = new THREE.GLTFLoader();
 
+// Function to create a shiny material
+function createShinyMaterial() {
+    return new THREE.MeshStandardMaterial({
+        color: 0x888888, // Base color, can be adjusted or set dynamically
+        metalness: 1.0,  // Full metalness for a shiny appearance
+        roughness: 0.3,  // Lower roughness for a polished look
+    });
+}
+
 // Load the first car model (eco_rally_car.glb)
 loader.load('evo_rally_car.glb', function(gltf) {
     const carModel1 = gltf.scene;
+
+    // Apply shiny material to all parts of the first car
+    carModel1.traverse((node) => {
+        if (node.isMesh) {
+            node.material = createShinyMaterial();
+        }
+    });
 
     carModel1.position.set(-2, 0, 0); // Position the first car on the left
     carModel1.scale.set(0.5, 0.5, 0.5); // Scale the car
@@ -40,9 +56,27 @@ loader.load('evo_rally_car.glb', function(gltf) {
 loader.load('free_porsche_911_carrera_4s.glb', function(gltf) {
     const carModel2 = gltf.scene;
 
+    // Apply shiny material to all parts of the second car
+    carModel2.traverse((node) => {
+        if (node.isMesh) {
+            node.material = createShinyMaterial();
+        }
+    });
+
     carModel2.position.set(2, 0, 0); // Position the second car on the right
     carModel2.scale.set(0.5, 0.5, 0.5); // Scale the car
     scene.add(carModel2);
+}, undefined, function(error) {
+    console.error('An error occurred loading the GLB file:', error);
+});
+
+// Load the skyline background (low_poly_night_city_building_skyline.glb)
+loader.load('low_poly_night_city_building_skyline.glb', function(gltf) {
+    const skyline = gltf.scene;
+
+    skyline.position.set(0, -5, -20); // Position the skyline behind the cars
+    skyline.scale.set(10, 10, 10); // Scale the skyline to make it large in the background
+    scene.add(skyline);
 }, undefined, function(error) {
     console.error('An error occurred loading the GLB file:', error);
 });
