@@ -5,8 +5,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 5, 20);
 
-// Create the renderer
-const renderer = new THREE.WebGLRenderer();
+// Create the renderer with anti-aliasing enabled
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio); // Set pixel ratio for sharpness
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('3d-container').appendChild(renderer.domElement);
 
@@ -37,6 +38,15 @@ loader.load('evo_rally_car.glb', function(gltf) {
     const wheelTexture = textureLoader.load('textures/wheel.png');
     const wheelBumpTexture = textureLoader.load('textures/wheel bump.png');
     const wheelRightTexture = textureLoader.load('textures/wheelright.png');
+
+    // Apply texture filtering for sharpness
+    [brakesTexture, fireTexture, lightEmissionTexture, lightTexture,
+     mitsubishiEmissionTexture, mitsubishiGlossyTexture, mitsubishiTexture,
+     wheelTexture, wheelBumpTexture, wheelRightTexture].forEach(texture => {
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    });
 
     // Apply textures to the corresponding parts of the model
     carModel.traverse(function(node) {
