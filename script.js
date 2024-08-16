@@ -14,20 +14,13 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping; // Use ACES tone mapping for
 renderer.toneMappingExposure = 1.0; // Adjust exposure if needed
 document.getElementById('3d-container').appendChild(renderer.domElement);
 
-// Add ambient light for general illumination
+// Add lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
 
-// Add directional light to simulate sunlight
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0); // Adjust intensity for clarity
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
-
-// Add lights to the cars
-const headlight1 = new THREE.PointLight(0xffffff, 1, 10);
-const headlight2 = new THREE.PointLight(0xffffff, 1, 10);
-const taillight1 = new THREE.PointLight(0xff0000, 1, 10);
-const taillight2 = new THREE.PointLight(0xff0000, 1, 10);
 
 // Create the GLTF loader
 const loader = new THREE.GLTFLoader();
@@ -52,17 +45,9 @@ loader.load('evo_rally_car.glb', function(gltf) {
         }
     });
 
-    carModel1.position.set(-2, 0, 0); // Position the first car on the left, Y-axis set to 0
+    carModel1.position.set(-2, 0, 0); // Position the first car on the left
     carModel1.scale.set(0.5, 0.5, 0.5); // Scale the car
-
-    // Add headlights and taillights
-    headlight1.position.set(-1.5, 0.5, 1.5); // Adjust position relative to the car
-    headlight2.position.set(-1.5, 0.5, -1.5);
-    taillight1.position.set(-2.5, 0.5, 1.5);
-    taillight2.position.set(-2.5, 0.5, -1.5);
-
     scene.add(carModel1);
-    scene.add(headlight1, headlight2, taillight1, taillight2);
 }, undefined, function(error) {
     console.error('An error occurred loading the GLB file:', error);
 });
@@ -78,9 +63,8 @@ loader.load('free_porsche_911_carrera_4s.glb', function(gltf) {
         }
     });
 
-    carModel2.position.set(2, 0, 0); // Position the second car on the right, Y-axis set to 0
+    carModel2.position.set(2, 0, 0); // Position the second car on the right
     carModel2.scale.set(0.5, 0.5, 0.5); // Scale the car
-
     scene.add(carModel2);
 }, undefined, function(error) {
     console.error('An error occurred loading the GLB file:', error);
@@ -90,20 +74,8 @@ loader.load('free_porsche_911_carrera_4s.glb', function(gltf) {
 loader.load('low_poly_night_city_building_skyline.glb', function(gltf) {
     const skyline = gltf.scene;
 
-    skyline.position.set(0, -5, -50); // Position the skyline further back to zoom it out
-    skyline.scale.set(30, 30, 30); // Scale the skyline for a larger background
-
-    // Apply a basic texture to make the buildings more realistic
-    skyline.traverse((node) => {
-        if (node.isMesh) {
-            node.material = new THREE.MeshStandardMaterial({
-                color: 0xaaaaaa, // Light gray for buildings
-                roughness: 0.6, // Slight roughness for realism
-                metalness: 0.2, // A bit of metalness for reflective windows
-            });
-        }
-    });
-
+    skyline.position.set(0, -5, -20); // Position the skyline behind the cars
+    skyline.scale.set(10, 10, 10); // Scale the skyline to make it large in the background
     scene.add(skyline);
 }, undefined, function(error) {
     console.error('An error occurred loading the GLB file:', error);
