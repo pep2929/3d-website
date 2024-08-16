@@ -11,15 +11,15 @@ renderer.setPixelRatio(window.devicePixelRatio); // Set pixel ratio for sharpnes
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputEncoding = THREE.sRGBEncoding; // Use sRGB encoding for better color accuracy
 renderer.toneMapping = THREE.ACESFilmicToneMapping; // Use ACES tone mapping for a more realistic look
-renderer.toneMappingExposure = 1.0; // Adjust exposure if needed
+renderer.toneMappingExposure = 1.2; // Slightly increased exposure for better visibility
 document.getElementById('3d-container').appendChild(renderer.domElement);
 
-// Add ambient light with reduced intensity
-const ambientLight = new THREE.AmbientLight(0xffc107, 0.3); // Lowered intensity for subtle warm light
+// Add ambient light with increased intensity
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Neutral white light for general illumination
 scene.add(ambientLight);
 
-// Adjust directional light to highlight the cars and skyline
-const directionalLight = new THREE.DirectionalLight(0xff8f00, 1.0); // Stronger directional light for contrast
+// Add stronger directional light to highlight the cars and skyline
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2); // Stronger directional light for better contrast
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
 
@@ -43,7 +43,7 @@ loader.load('evo_rally_car.glb', function(gltf) {
         }
     });
 
-    carModel1.position.set(-2, 0, 0); // Position the first car on the same level
+    carModel1.position.set(2, 0, 0); // Position the first car on the same level
     carModel1.scale.set(0.5, 0.5, 0.5); // Scale the car
     scene.add(carModel1);
 
