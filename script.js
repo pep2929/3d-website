@@ -15,11 +15,12 @@ renderer.toneMappingExposure = 1.0; // Adjust exposure if needed
 document.body.style.backgroundColor = '#FFB74D'; // Sunset vibe background color
 document.getElementById('3d-container').appendChild(renderer.domElement);
 
-// Add ambient and directional lights for overall scene lighting
-const ambientLight = new THREE.AmbientLight(0xffc107, 0.8); // Warm sunset light
+// Add ambient light with reduced intensity
+const ambientLight = new THREE.AmbientLight(0xffc107, 0.3); // Lowered intensity for subtle warm light
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xff8f00, 0.5); // Directional sunset light
+// Adjust directional light to highlight the cars and skyline
+const directionalLight = new THREE.DirectionalLight(0xff8f00, 1.0); // Stronger directional light for contrast
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
 
