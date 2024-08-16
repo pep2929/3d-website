@@ -28,7 +28,7 @@ loader.load('evo_rally_car.glb', function(gltf) {
     carModel.scale.set(0.5, 0.5, 0.5); // Scale the car to fit the scene
     scene.add(carModel);
 }, undefined, function(error) {
-    console.error(error);
+    console.error('An error occurred loading the GLB file:', error);
 });
 
 // Load the second car model (you can duplicate the first if you want the same car)
@@ -38,7 +38,7 @@ loader.load('evo_rally_car.glb', function(gltf) {
     carModel2.scale.set(0.5, 0.5, 0.5); // Scale the car to fit the scene
     scene.add(carModel2);
 }, undefined, function(error) {
-    console.error(error);
+    console.error('An error occurred loading the GLB file:', error);
 });
 
 // Create a vault (using placeholder geometry for simplicity)
