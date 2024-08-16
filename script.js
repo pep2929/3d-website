@@ -12,7 +12,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputEncoding = THREE.sRGBEncoding; // Use sRGB encoding for better color accuracy
 renderer.toneMapping = THREE.ACESFilmicToneMapping; // Use ACES tone mapping for a more realistic look
 renderer.toneMappingExposure = 1.0; // Adjust exposure if needed
-document.body.style.backgroundColor = '#FFB74D'; // Sunset vibe background color
 document.getElementById('3d-container').appendChild(renderer.domElement);
 
 // Add ambient light with reduced intensity
