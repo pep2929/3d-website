@@ -3,7 +3,7 @@ const scene = new THREE.Scene();
 
 // Create the camera, positioned closer to the cars
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 3, 10); // Move the camera closer
+camera.position.set(0, 3, 15); // Adjust the camera position to ensure visibility of the scene
 
 // Create the renderer with anti-aliasing enabled
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -92,8 +92,8 @@ loader.load('free_porsche_911_carrera_4s.glb', function(gltf) {
 loader.load('low_poly_night_city_building_skyline.glb', function(gltf) {
     const skyline = gltf.scene;
 
-    skyline.position.set(0, -5, -50); // Zoom out the skyline background
-    skyline.scale.set(20, 20, 20); // Scale the skyline to make it large in the background
+    skyline.position.set(0, -5, -100); // Zoom out the skyline background even more
+    skyline.scale.set(50, 50, 50); // Further scale the skyline to ensure it's in the background
     scene.add(skyline);
     
     // Add realistic textures to the buildings (example with a basic texture)
