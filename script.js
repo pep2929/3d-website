@@ -14,13 +14,16 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping; // Use ACES tone mapping for
 renderer.toneMappingExposure = 1.0; // Adjust exposure if needed
 document.getElementById('3d-container').appendChild(renderer.domElement);
 
-// Add basic ambient and directional lighting
+// Add lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0); // Adjust intensity for clarity
 directionalLight.position.set(10, 20, 10);
 scene.add(directionalLight);
+
+// Create the GLTF loader
+const loader = new THREE.GLTFLoader();
 
 // Function to create a shiny material
 function createShinyMaterial() {
@@ -32,7 +35,6 @@ function createShinyMaterial() {
 }
 
 // Load the first car model (eco_rally_car.glb)
-const loader = new THREE.GLTFLoader();
 loader.load('evo_rally_car.glb', function(gltf) {
     const carModel1 = gltf.scene;
 
@@ -43,7 +45,7 @@ loader.load('evo_rally_car.glb', function(gltf) {
         }
     });
 
-    carModel1.position.set(-2, 2, 0); // Position the first car at Y-axis 2
+    carModel1.position.set(-2, 0, 0); // Position the first car on the left
     carModel1.scale.set(0.5, 0.5, 0.5); // Scale the car
     scene.add(carModel1);
 }, undefined, function(error) {
@@ -61,20 +63,20 @@ loader.load('free_porsche_911_carrera_4s.glb', function(gltf) {
         }
     });
 
-    carModel2.position.set(2, 2, 0); // Position the second car at Y-axis 2
+    carModel2.position.set(2, 0, 0); // Position the second car on the right
     carModel2.scale.set(0.5, 0.5, 0.5); // Scale the car
     scene.add(carModel2);
 }, undefined, function(error) {
     console.error('An error occurred loading the GLB file:', error);
 });
 
-// Load the building models (low_poly_night_city_building_skyline.glb)
+// Load the skyline background (low_poly_night_city_building_skyline.glb)
 loader.load('low_poly_night_city_building_skyline.glb', function(gltf) {
-    const buildings = gltf.scene;
+    const skyline = gltf.scene;
 
-    buildings.position.set(0, -5, -20); // Position the buildings behind the cars
-    buildings.scale.set(20, 20, 20); // Scale the buildings
-    scene.add(buildings);
+    skyline.position.set(0, -5, -20); // Position the skyline behind the cars
+    skyline.scale.set(10, 10, 10); // Scale the skyline to make it large in the background
+    scene.add(skyline);
 }, undefined, function(error) {
     console.error('An error occurred loading the GLB file:', error);
 });
