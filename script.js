@@ -35,17 +35,18 @@ function createShinyMaterial() {
 }
 
 // Load the first car model (eco_rally_car.glb)
-loader.load('evo_rally_car.glb', function(gltf) {
+loader.load('eco_rally_car.glb', function(gltf) {
     const carModel1 = gltf.scene;
 
-    // Apply shiny material to all parts of the first car
+    // Apply shiny material and change color to the first car
     carModel1.traverse((node) => {
         if (node.isMesh) {
             node.material = createShinyMaterial();
+            node.material.color.setHex(0xff0000); // Change color to red
         }
     });
 
-    carModel1.position.set(-2, 0, 0); // Position the first car on the left
+    carModel1.position.set(2, 0, 0); // Position the first car on the left
     carModel1.scale.set(0.5, 0.5, 0.5); // Scale the car
     scene.add(carModel1);
 }, undefined, function(error) {
@@ -56,14 +57,15 @@ loader.load('evo_rally_car.glb', function(gltf) {
 loader.load('free_porsche_911_carrera_4s.glb', function(gltf) {
     const carModel2 = gltf.scene;
 
-    // Apply shiny material to all parts of the second car
+    // Apply shiny material and change color to the second car
     carModel2.traverse((node) => {
         if (node.isMesh) {
             node.material = createShinyMaterial();
+            node.material.color.setHex(0x0000ff); // Change color to blue
         }
     });
 
-    carModel2.position.set(2, 0, 0); // Position the second car on the right
+    carModel2.position.set(-2, 0, 0); // Position the second car on the right
     carModel2.scale.set(0.5, 0.5, 0.5); // Scale the car
     scene.add(carModel2);
 }, undefined, function(error) {
@@ -74,11 +76,41 @@ loader.load('free_porsche_911_carrera_4s.glb', function(gltf) {
 loader.load('low_poly_night_city_building_skyline.glb', function(gltf) {
     const skyline = gltf.scene;
 
+    // Apply realistic textures and properties
+    const textureLoader = new THREE.TextureLoader();
+    const buildingTexture = textureLoader.load('path_to_your_texture_image.jpg');
+
+    skyline.traverse((node) => {
+        if (node.isMesh) {
+            node.material = new THREE.MeshStandardMaterial({
+                map: buildingTexture,
+                roughness: 0.5,
+                metalness: 0.3
+            });
+        }
+    });
+
     skyline.position.set(0, -5, -20); // Position the skyline behind the cars
-    skyline.scale.set(10, 10, 10); // Scale the skyline to make it large in the background
+    skyline.scale.set(5, 5, 5); // Scale the skyline to make it large in the background
     scene.add(skyline);
 }, undefined, function(error) {
     console.error('An error occurred loading the GLB file:', error);
+});
+
+// Change the color of the cars
+loader.load('eco_rally_car.glb', function(gltf) {
+    const car = gltf.scene;
+
+    car.traverse((node) => {
+        if (node.isMesh) {
+            node.material.color.setHex(0xff0000); // Sets the car color to red
+        }
+    });
+
+    car.position.set(0, 2, 0); // Adjust car position if needed
+    scene.add(car);
+}, undefined, function(error) {
+    console.error('An error occurred loading the car GLB file:', error);
 });
 
 // Animation loop
@@ -87,7 +119,7 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-animate();
+animate(); // Start the animation loop
 
 // Handle window resize
 window.addEventListener('resize', () => {
